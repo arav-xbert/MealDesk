@@ -1,0 +1,13 @@
+{
+  "name": "frontend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Frontend dev script placeholder'",
+    "build": "echo 'Frontend build script placeholder'",
+    "start": "echo 'Frontend start script placeholder'",
+    "lint": "echo 'Frontend lint script placeholder'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

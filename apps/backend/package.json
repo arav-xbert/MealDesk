@@ -1,0 +1,13 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Backend dev script placeholder'",
+    "build": "echo 'Backend build script placeholder'",
+    "start": "echo 'Backend start script placeholder'",
+    "lint": "echo 'Backend lint script placeholder'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
