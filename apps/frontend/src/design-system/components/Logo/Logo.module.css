@@ -1,0 +1,8 @@
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-primary);
+  border-radius: 14px;
+  flex-shrink: 0;
+}

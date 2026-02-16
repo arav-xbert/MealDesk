@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Font Families */
+  --font-primary: 'Rajdhani', sans-serif;
+  --font-secondary: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Display H1 */
+  --text-display-h1-size: 152px;
+  --text-display-h1-line-height: 152px;
+  --text-display-h1-letter-spacing: -2%;
+
+  /* Display H2 */
+  --text-display-h2-size: 96px;
+  --text-display-h2-line-height: 104px;
+  --text-display-h2-letter-spacing: -1.5%;
+
+  /* Heading H3 */
+  --text-heading-h3-size: 64px;
+  --text-heading-h3-line-height: 72px;
+  --text-heading-h3-letter-spacing: -0.5%;
+
+  /* Heading H4 */
+  --text-heading-h4-size: 36px;
+  --text-heading-h4-line-height: 48px;
+  --text-heading-h4-letter-spacing: 0;
+
+  /* Heading H5 */
+  --text-heading-h5-size: 24px;
+  --text-heading-h5-line-height: 32px;
+  --text-heading-h5-letter-spacing: 0;
+
+  /* Body Regular */
+  --text-body-size: 16px;
+  --text-body-line-height: 24px;
+  --text-body-letter-spacing: 0;
+
+  /* Caption */
+  --text-caption-size: 12px;
+  --text-caption-line-height: 16px;
+  --text-caption-letter-spacing: 0.5%;
+}
