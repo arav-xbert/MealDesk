@@ -13,19 +13,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Text: Story = {
+export const TextField: Story = {
   args: { variant: 'text', placeholder: 'Enter your email' },
 };
 
-export const Password: Story = {
+export const PasswordField: Story = {
   args: { variant: 'password', placeholder: 'Enter password' },
-};
-
-export const Disabled: Story = {
-  args: { variant: 'text', placeholder: 'Disabled input', disabled: true },
-};
-
-export const WithValue: Story = {
-  name: 'With Value',
-  args: { variant: 'text', defaultValue: 'john@example.com' },
 };

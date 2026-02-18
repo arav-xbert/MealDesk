@@ -18,24 +18,3 @@ export const Default: Story = {
     </TabBar>
   ),
 };
-
-export const ThreeTabs: Story = {
-  name: 'Three Tabs',
-  render: () => (
-    <TabBar>
-      <TabItem active>This Week</TabItem>
-      <TabItem>Next Week</TabItem>
-      <TabItem>Archive</TabItem>
-    </TabBar>
-  ),
-};
-
-export const SecondTabActive: Story = {
-  name: 'Second Tab Active',
-  render: () => (
-    <TabBar>
-      <TabItem>All Meals</TabItem>
-      <TabItem active>Upcoming</TabItem>
-    </TabBar>
-  ),
-};

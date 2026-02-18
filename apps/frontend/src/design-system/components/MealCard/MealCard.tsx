@@ -1,4 +1,5 @@
 import { Badge } from '../Badge';
+import { RadioButton } from '../RadioButton';
 import styles from './MealCard.module.css';
 
 interface MealCardProps {
@@ -6,12 +7,17 @@ interface MealCardProps {
   description?: string;
   tags?: string[];
   image?: string;
+  selected?: boolean;
+  onSelect?: () => void;
   className?: string;
 }
 
-export function MealCard({ name, description, tags = [], image, className }: MealCardProps) {
+export function MealCard({ name, description, tags = [], image, selected, onSelect, className }: MealCardProps) {
   return (
     <div className={`${styles.card} ${className ?? ''}`}>
+      <div className={styles.radioArea}>
+        <RadioButton name="meal" checked={!!selected} onChange={() => onSelect?.()} />
+      </div>
       {image && (
         <div className={styles.imageWrapper}>
           <img src={image} alt={name} className={styles.image} />

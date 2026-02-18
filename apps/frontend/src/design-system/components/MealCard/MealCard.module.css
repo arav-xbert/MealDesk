@@ -10,6 +10,11 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
+.radioArea {
+  display: flex;
+  align-items: center;
+}
+
 .imageWrapper {
   width: 96px;
   height: 96px;

@@ -15,14 +15,3 @@ export const Default: Story = {
     children: 'This is a basic card with some content inside.',
   },
 };
-
-export const WithRichContent: Story = {
-  name: 'With Rich Content',
-  render: () => (
-    <Card>
-      <h3 style={{ marginBottom: 8 }}>Card Title</h3>
-      <p style={{ marginBottom: 12 }}>Some descriptive text goes here to demonstrate rich content inside a card.</p>
-      <button>Action</button>
-    </Card>
-  ),
-};

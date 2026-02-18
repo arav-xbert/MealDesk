@@ -51,10 +51,13 @@
   /* Danger */
   --color-danger-500: #E54040;
 
-  /* Gradients */
-  --gradient-primary: linear-gradient(90deg, #7949FF 0%, #FF498B 100%);
-  --gradient-primary-interactive: linear-gradient(90deg, #1967C4 0%, #7949FF 100%);
-  --gradient-accent: linear-gradient(90deg, #19BAC4 0%, #25EAC4 100%);
+  /* Gradients — sourced from Figma UXBERT Gradients collection */
+  /* gradient/primary = Interactive Blue → Primary Purple */
+  --gradient-primary: linear-gradient(135deg, #1967C4 0%, #7949FF 100%);
+  /* gradient/accent = Cyan → Mint */
+  --gradient-accent: linear-gradient(135deg, #19BAC4 0%, #25EAC4 100%);
+  /* Brand gradient (purple → pink) — used locally, not a named Figma variable */
+  --gradient-brand: linear-gradient(90deg, #7949FF 0%, #FF498B 100%);
 
   /* White */
   --color-white: #FFFFFF;

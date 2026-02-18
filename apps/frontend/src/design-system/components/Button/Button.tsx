@@ -2,18 +2,28 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import styles from './Button.module.css';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary';
   children: ReactNode;
 }
 
-export function Button({ variant = 'primary', children, className, ...props }: ButtonProps) {
+export function ButtonPrimary({ children, className, ...props }: ButtonProps) {
   return (
     <button
-      className={`${styles.button} ${styles[variant]} ${className ?? ''}`}
+      className={`${styles.root} ${styles.primary} ${className ?? ''}`}
       {...props}
     >
       {children}
-      {variant === 'primary' && <span className={styles.arrow}>&rarr;</span>}
+      <span className={styles.arrow}>&rarr;</span>
+    </button>
+  );
+}
+
+export function ButtonSecondary({ children, className, ...props }: ButtonProps) {
+  return (
+    <button
+      className={`${styles.root} ${styles.secondary} ${className ?? ''}`}
+      {...props}
+    >
+      {children}
     </button>
   );
 }

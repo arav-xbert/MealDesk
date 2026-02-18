@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Font Families */
-  --font-primary: 'Rajdhani', sans-serif;
-  --font-secondary: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+  /* Font Families — sourced from Figma UXBERT Typography collection */
+  /* Figma canonical names */
+  --font-family-primary: 'Rajdhani', sans-serif;
+  --font-family-secondary: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+  /* Legacy aliases (referenced by app-level CSS — do not remove) */
+  --font-primary: var(--font-family-primary);
+  --font-secondary: var(--font-family-secondary);
 
   /* Font Weights */
   --font-weight-light: 300;
@@ -38,12 +42,20 @@
   --text-heading-h5-letter-spacing: 0;
 
   /* Body Regular */
-  --text-body-size: 16px;
-  --text-body-line-height: 24px;
-  --text-body-letter-spacing: 0;
+  --text-body-regular-size: 16px;
+  --text-body-regular-line-height: 24px;
+  --text-body-regular-letter-spacing: 0;
+  /* Legacy aliases */
+  --text-body-size: var(--text-body-regular-size);
+  --text-body-line-height: var(--text-body-regular-line-height);
+  --text-body-letter-spacing: var(--text-body-regular-letter-spacing);
 
   /* Caption */
-  --text-caption-size: 12px;
-  --text-caption-line-height: 16px;
-  --text-caption-letter-spacing: 0.5%;
+  --text-utility-caption-size: 12px;
+  --text-utility-caption-line-height: 16px;
+  --text-utility-caption-letter-spacing: 0.5%;
+  /* Legacy aliases */
+  --text-caption-size: var(--text-utility-caption-size);
+  --text-caption-line-height: var(--text-utility-caption-line-height);
+  --text-caption-letter-spacing: var(--text-utility-caption-letter-spacing);
 }

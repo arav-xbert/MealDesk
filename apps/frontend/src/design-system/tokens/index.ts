@@ -29,6 +29,7 @@ export const colors = {
     700: '#BFBFBF',
     725: '#C7C7C7',
     775: '#D9D9D9',
+    780: '#D9D9D9',
     800: '#D9D9E5',
     825: '#E0E0E5',
     875: '#EBEBF0',
@@ -54,9 +55,12 @@ export const colors = {
 } as const;
 
 export const gradients = {
-  primary: 'linear-gradient(90deg, #7949FF 0%, #FF498B 100%)',
-  primaryInteractive: 'linear-gradient(90deg, #1967C4 0%, #7949FF 100%)',
-  accent: 'linear-gradient(90deg, #19BAC4 0%, #25EAC4 100%)',
+  // Figma canonical: gradient/primary = Interactive Blue → Primary Purple
+  primary: 'linear-gradient(135deg, #1967C4 0%, #7949FF 100%)',
+  // Figma canonical: gradient/accent = Cyan → Mint
+  accent: 'linear-gradient(135deg, #19BAC4 0%, #25EAC4 100%)',
+  // Brand gradient (purple → pink) — not a named Figma variable
+  brand: 'linear-gradient(90deg, #7949FF 0%, #FF498B 100%)',
 } as const;
 
 export const typography = {

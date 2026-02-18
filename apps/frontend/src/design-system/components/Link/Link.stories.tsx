@@ -11,15 +11,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: { href: '#', children: 'Click here' },
-};
-
-export const ExternalLink: Story = {
-  name: 'External Link',
-  args: {
-    href: 'https://example.com',
-    target: '_blank',
-    rel: 'noopener noreferrer',
-    children: 'Visit Example',
-  },
+  args: { href: '#', children: 'Forgot?' },
 };

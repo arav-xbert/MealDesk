@@ -19,27 +19,5 @@ export const Status: Story = {
 };
 
 export const Tag: Story = {
-  args: { variant: 'tag', children: 'Vegetarian' },
-};
-
-export const StatusClosed: Story = {
-  name: 'Status — Closed',
-  args: { variant: 'status', children: 'CLOSED' },
-};
-
-export const StatusPending: Story = {
-  name: 'Status — Pending',
-  args: { variant: 'status', children: 'PENDING' },
-};
-
-export const TagVariants: Story = {
-  name: 'Tag Variants',
-  render: () => (
-    <div style={{ display: 'flex', gap: 8 }}>
-      <Badge variant="tag">Vegetarian</Badge>
-      <Badge variant="tag">Gluten-Free</Badge>
-      <Badge variant="tag">Spicy</Badge>
-      <Badge variant="tag">Dairy-Free</Badge>
-    </div>
-  ),
+  args: { variant: 'tag', children: 'HIGH PROTEIN' },
 };

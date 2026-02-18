@@ -1,29 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
+import { ButtonPrimary, ButtonSecondary } from './Button';
 
 const meta = {
   title: 'Design System/Components/Button',
-  component: Button,
+  component: ButtonPrimary,
   tags: ['autodocs'],
-  argTypes: {
-    variant: { control: 'select', options: ['primary', 'secondary'] },
-  },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof ButtonPrimary>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: { variant: 'primary', children: 'Get Started' },
-  decorators: [(Story) => <div style={{ maxWidth: 360 }}><Story /></div>],
+  render: () => (
+    <div style={{ maxWidth: 360 }}>
+      <ButtonPrimary>Get Started</ButtonPrimary>
+    </div>
+  ),
 };
 
 export const Secondary: Story = {
-  args: { variant: 'secondary', children: 'Cancel' },
-};
-
-export const PrimaryDisabled: Story = {
-  name: 'Primary — Disabled',
-  args: { variant: 'primary', children: 'Get Started', disabled: true },
-  decorators: [(Story) => <div style={{ maxWidth: 360 }}><Story /></div>],
+  render: () => <ButtonSecondary>Cancel</ButtonSecondary>,
 };

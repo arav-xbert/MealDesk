@@ -1,5 +1,6 @@
 import {
-  Button,
+  ButtonPrimary,
+  ButtonSecondary,
   Input,
   Badge,
   RadioButton,
@@ -25,10 +26,10 @@ function App() {
         <section className="section">
           <h2 className="section-title">Buttons</h2>
           <div className="row">
-            <Button variant="primary">Sign In</Button>
+            <ButtonPrimary>Sign In</ButtonPrimary>
           </div>
           <div className="row">
-            <Button variant="secondary">Submit Selection</Button>
+            <ButtonSecondary>Submit Selection</ButtonSecondary>
           </div>
         </section>
 
@@ -91,8 +92,8 @@ function App() {
 
         <section className="section">
           <h2 className="section-title">Meal Schedule</h2>
-          <MealScheduleCard day="Mon" date="17" mealName="Grilled Chicken Bowl" status="OPEN" />
-          <MealScheduleCard day="Tue" date="18" mealName="Mediterranean Pasta" status="PENDING" />
+          <MealScheduleCard mealName="Grilled Chicken Bowl" date="Monday, Feb 17" deadline="Order by 10:00 AM" status="OPEN" />
+          <MealScheduleCard mealName="Mediterranean Pasta" date="Tuesday, Feb 18" deadline="Order by 10:00 AM" />
         </section>
       </main>
     </div>
