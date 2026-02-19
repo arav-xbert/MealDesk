@@ -1,0 +1,89 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-neutral-950);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NavBar extras ──────────────────────────────────────── */
+.navTitle {
+  font-family: var(--font-primary);
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navUser {
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-white);
+}
+
+.navLogout {
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-white);
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.navLogout:hover {
+  opacity: 1;
+}
+
+/* ── Content ────────────────────────────────────────────── */
+.content {
+  flex: 1;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Section label ──────────────────────────────────────── */
+.sectionLabel {
+  font-family: var(--font-secondary);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-primary-500);
+  margin: 0;
+}
+
+/* ── Meal list ──────────────────────────────────────────── */
+.mealList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.hint {
+  font-family: var(--font-secondary);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-accent-500);
+  text-align: center;
+  margin: 0;
+}
