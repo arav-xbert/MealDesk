@@ -37,6 +37,14 @@ export const SecondaryDisabled: Story = {
   render: () => <Button variant="secondary" disabled>Submit Selection</Button>,
 };
 
+export const WithIcon: Story = {
+  render: () => (
+    <div style={{ maxWidth: 360 }}>
+      <Button variant="primary" icon={true}>Get Started</Button>
+    </div>
+  ),
+};
+
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 360 }}>

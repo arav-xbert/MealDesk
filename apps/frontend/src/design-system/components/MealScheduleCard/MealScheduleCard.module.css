@@ -1,8 +1,9 @@
 .card {
   width: 100%;
-  padding: 16px;
+  padding: 20px 24px;
   background: var(--color-white);
-  border-radius: 12px;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
 .content {
@@ -19,15 +20,15 @@
 
 .mealName {
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-semibold);
-  font-size: 16px;
-  color: var(--color-neutral-100);
+  font-weight: 700;
+  font-size: 22px;
+  color: #180F33;
 }
 
 .date {
   font-family: var(--font-secondary);
   font-size: 14px;
-  color: var(--color-neutral-400);
+  color: #7949FF;
 }
 
 .deadlineRow {
@@ -37,10 +38,11 @@
 }
 
 .dot {
-  width: 6px;
-  height: 6px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: var(--color-neutral-400);
+  border: 1.5px solid #FF498B;
+  background: transparent;
   flex-shrink: 0;
 }
 

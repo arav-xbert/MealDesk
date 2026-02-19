@@ -3,25 +3,26 @@
   align-items: center;
   gap: 12px;
   width: 100%;
-  min-height: 139px;
-  padding: 16px;
+  padding: 20px 24px;
   background: var(--color-white);
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
 .radioArea {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-shrink: 0;
 }
 
 .imageWrapper {
-  width: 96px;
-  height: 96px;
-  min-width: 96px;
-  border-radius: 10px;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  border-radius: 8px;
   overflow: hidden;
-  background: var(--color-neutral-900);
+  background: #D9D9D9;
+  flex-shrink: 0;
 }
 
 .image {

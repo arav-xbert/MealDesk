@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { NavBar } from './NavBar';
 import { Logo } from '../Logo';
-import { Button } from '../Button';
 
 const meta = {
   title: 'Design System/Components/NavBar',
@@ -19,9 +18,9 @@ export const Default: Story = {
       title="MealDesk"
       left={<Logo size={56} />}
       right={
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span>Aravind</span>
-          <Button variant="secondary">Log Out</Button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <span style={{ fontFamily: 'IBM Plex Sans', fontSize: 14, fontWeight: 500, color: '#D9D9E5' }}>Jane Doe</span>
+          <span style={{ fontFamily: 'IBM Plex Sans', fontSize: 14, fontWeight: 400, color: '#A6A6B2', cursor: 'pointer' }}>Logout</span>
         </div>
       }
     />
