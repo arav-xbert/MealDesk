@@ -2,9 +2,11 @@
 export { colors, gradients, typography } from './tokens';
 
 // Components
-export { ButtonPrimary, ButtonSecondary } from './components/Button';
+export { Button } from './components/Button';
 export { Input } from './components/Input';
 export { Badge } from './components/Badge';
+export type { BadgeVariant } from './components/Badge';
+export { Tag } from './components/Tag';
 export { RadioButton } from './components/RadioButton';
 export { Checkbox } from './components/Checkbox';
 export { Card } from './components/Card';

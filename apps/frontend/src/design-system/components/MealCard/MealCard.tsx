@@ -1,4 +1,4 @@
-import { Badge } from '../Badge';
+import { Tag } from '../Tag';
 import { RadioButton } from '../RadioButton';
 import styles from './MealCard.module.css';
 
@@ -29,7 +29,7 @@ export function MealCard({ name, description, tags = [], image, selected, onSele
         {tags.length > 0 && (
           <div className={styles.tags}>
             {tags.map((tag) => (
-              <Badge key={tag} variant="tag">{tag}</Badge>
+              <Tag key={tag}>{tag}</Tag>
             ))}
           </div>
         )}

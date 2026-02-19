@@ -11,5 +11,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Unchecked: Story = {
-  args: { label: 'Accept terms and conditions' },
+  args: { label: 'Keep me signed in' },
+};
+
+export const Checked: Story = {
+  args: { label: 'Keep me signed in', defaultChecked: true },
 };

@@ -1,8 +1,8 @@
 import {
-  ButtonPrimary,
-  ButtonSecondary,
+  Button,
   Input,
   Badge,
+  Tag,
   RadioButton,
   Checkbox,
   Card,
@@ -26,10 +26,10 @@ function App() {
         <section className="section">
           <h2 className="section-title">Buttons</h2>
           <div className="row">
-            <ButtonPrimary>Sign In</ButtonPrimary>
+            <Button variant="primary">Sign In</Button>
           </div>
           <div className="row">
-            <ButtonSecondary>Submit Selection</ButtonSecondary>
+            <Button variant="secondary">Submit Selection</Button>
           </div>
         </section>
 
@@ -40,11 +40,15 @@ function App() {
         </section>
 
         <section className="section">
-          <h2 className="section-title">Badges</h2>
+          <h2 className="section-title">Badges &amp; Tags</h2>
           <div className="row-inline">
-            <Badge variant="status">OPEN</Badge>
-            <Badge variant="tag">HIGH PROTEIN</Badge>
-            <Badge variant="tag">LOW CARB</Badge>
+            <Badge variant="open">OPEN</Badge>
+            <Badge variant="pending">PENDING</Badge>
+            <Badge variant="closed">CLOSED</Badge>
+          </div>
+          <div className="row-inline" style={{ marginTop: 8 }}>
+            <Tag>HIGH PROTEIN</Tag>
+            <Tag>LOW CARB</Tag>
           </div>
         </section>
 
@@ -92,8 +96,9 @@ function App() {
 
         <section className="section">
           <h2 className="section-title">Meal Schedule</h2>
-          <MealScheduleCard mealName="Grilled Chicken Bowl" date="Monday, Feb 17" deadline="Order by 10:00 AM" status="OPEN" />
-          <MealScheduleCard mealName="Mediterranean Pasta" date="Tuesday, Feb 18" deadline="Order by 10:00 AM" />
+          <MealScheduleCard mealName="Grilled Chicken Bowl" date="Monday, Feb 17" deadline="Order by 10:00 AM" status="open" />
+          <MealScheduleCard mealName="Mediterranean Pasta" date="Tuesday, Feb 18" deadline="Order by 10:00 AM" status="pending" />
+          <MealScheduleCard mealName="Caesar Salad" date="Wednesday, Feb 19" deadline="Order by 10:00 AM" status="closed" />
         </section>
       </main>
     </div>

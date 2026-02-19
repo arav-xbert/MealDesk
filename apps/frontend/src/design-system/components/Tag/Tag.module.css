@@ -1,0 +1,14 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #EFE9FF;
+  color: #7949FF;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

@@ -1,11 +1,12 @@
 import { Badge } from '../Badge';
+import type { BadgeVariant } from '../Badge';
 import styles from './MealScheduleCard.module.css';
 
 interface MealScheduleCardProps {
   mealName: string;
   date: string;
   deadline: string;
-  status?: string;
+  status?: BadgeVariant;
   className?: string;
 }
 
@@ -15,7 +16,7 @@ export function MealScheduleCard({ mealName, date, deadline, status, className }
       <div className={styles.content}>
         <div className={styles.topRow}>
           <span className={styles.mealName}>{mealName}</span>
-          {status && <Badge variant="status">{status}</Badge>}
+          {status && <Badge variant={status}>{status.toUpperCase()}</Badge>}
         </div>
         <span className={styles.date}>{date}</span>
         <div className={styles.deadlineRow}>

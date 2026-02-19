@@ -2,23 +2,29 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-primary);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-}
-
-.status {
-  padding: 4px 12px;
-  background: var(--color-success-100);
-  color: var(--color-success-500);
-  border-radius: 12px;
-  font-size: 12px;
-}
-
-.tag {
-  padding: 2px 8px;
-  background: var(--color-primary-50);
-  color: var(--color-primary-500);
+  padding: 4px 10px;
   border-radius: 4px;
-  font-size: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Status=Open — green */
+.open {
+  background: #E5FFEB;
+  color: #219954;
+}
+
+/* Status=Pending — amber */
+.pending {
+  background: #FFF1E7;
+  color: #D9730D;
+}
+
+/* Status=Closed — red */
+.closed {
+  background: #FDE8E8;
+  color: #E54040;
 }

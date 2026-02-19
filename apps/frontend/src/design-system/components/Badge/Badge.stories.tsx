@@ -6,7 +6,7 @@ const meta = {
   component: Badge,
   tags: ['autodocs'],
   argTypes: {
-    variant: { control: 'select', options: ['status', 'tag'] },
+    variant: { control: 'select', options: ['open', 'pending', 'closed'] },
     children: { control: 'text' },
   },
 } satisfies Meta<typeof Badge>;
@@ -14,10 +14,24 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Status: Story = {
-  args: { variant: 'status', children: 'OPEN' },
+export const Open: Story = {
+  args: { variant: 'open', children: 'OPEN' },
 };
 
-export const Tag: Story = {
-  args: { variant: 'tag', children: 'HIGH PROTEIN' },
+export const Pending: Story = {
+  args: { variant: 'pending', children: 'PENDING' },
+};
+
+export const Closed: Story = {
+  args: { variant: 'closed', children: 'CLOSED' },
+};
+
+export const AllVariants: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 8 }}>
+      <Badge variant="open">OPEN</Badge>
+      <Badge variant="pending">PENDING</Badge>
+      <Badge variant="closed">CLOSED</Badge>
+    </div>
+  ),
 };

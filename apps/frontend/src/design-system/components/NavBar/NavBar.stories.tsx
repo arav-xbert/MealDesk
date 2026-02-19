@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { NavBar } from './NavBar';
 import { Logo } from '../Logo';
-import { ButtonSecondary } from '../Button';
+import { Button } from '../Button';
 
 const meta = {
   title: 'Design System/Components/NavBar',
@@ -21,7 +21,7 @@ export const Default: Story = {
       right={
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span>Aravind</span>
-          <ButtonSecondary>Log Out</ButtonSecondary>
+          <Button variant="secondary">Log Out</Button>
         </div>
       }
     />
