@@ -1,13 +1,34 @@
 {
   "name": "backend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "echo 'Backend dev script placeholder'",
-    "build": "echo 'Backend build script placeholder'",
-    "start": "echo 'Backend start script placeholder'",
-    "lint": "echo 'Backend lint script placeholder'"
+    "dev": "tsx watch src/index.ts",
+    "build": "tsup src/index.ts --format cjs --dts",
+    "start": "node dist/index.js",
+    "lint": "tsc --noEmit",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.1",
+    "@fastify/jwt": "^9.0.1",
+    "@fastify/multipart": "^9.0.1",
+    "@fastify/static": "^8.0.3",
+    "@prisma/client": "^6.0.0",
+    "bcrypt": "^5.1.1",
+    "fastify": "^5.2.1",
+    "fastify-plugin": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "^22.0.0",
+    "prisma": "^6.0.0",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
 }
