@@ -23,8 +23,7 @@ async function main() {
       })
     }
     console.log('Seeded default users')
-    return
-  }
+  } else {
 
   const lines = fs.readFileSync(csvPath, 'utf-8').trim().split('\n').slice(1) // skip header
   for (const line of lines) {
@@ -41,9 +40,42 @@ async function main() {
       },
     })
   }
-  console.log(`Seeded ${lines.length} users from CSV`)
+    console.log(`Seeded ${lines.length} users from CSV`)
+  }
+}
+
+async function seedDemoData() {
+  const meals = [
+    { name: 'Grilled Chicken Bowl', description: 'Lean grilled chicken with rice and veggies', category: 'HIGH PROTEIN' },
+    { name: 'Veggie Wrap', description: 'Fresh seasonal vegetables in a whole wheat wrap', category: 'VEG' },
+    { name: 'Beef Burger', description: 'Classic beef patty with lettuce and tomato', category: 'CLASSIC' },
+    { name: 'Salmon Salad', description: 'Grilled salmon over mixed greens with lemon dressing', category: 'HIGH PROTEIN' },
+  ]
+
+  for (const meal of meals) {
+    const exists = await prisma.menuOption.findFirst({ where: { name: meal.name } })
+    if (!exists) await prisma.menuOption.create({ data: meal })
+  }
+  console.log('Seeded demo menu options')
+
+  const activeListing = await prisma.listing.findFirst({ where: { status: 'ACTIVE' } })
+  if (!activeListing) {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    await prisma.listing.create({
+      data: {
+        title: "Today's Lunch",
+        date: today,
+        startTime: new Date('1970-01-01T09:00:00Z'),
+        endTime: new Date('1970-01-01T11:00:00Z'),
+        status: 'ACTIVE',
+      },
+    })
+    console.log('Seeded demo active listing')
+  }
 }
 
 main()
+  .then(() => seedDemoData())
   .catch(console.error)
   .finally(() => prisma.$disconnect())
