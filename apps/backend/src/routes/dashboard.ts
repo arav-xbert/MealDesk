@@ -5,7 +5,24 @@ import { requireRole } from '../middleware/authorize'
 export async function dashboardRoutes(app: FastifyInstance) {
   const auth = [authenticate, requireRole('HR')]
 
-  app.get('/stats', { preHandler: auth }, async () => {
+  app.get('/stats', {
+    preHandler: auth,
+    schema: {
+      tags: ['Dashboard'],
+      summary: 'Get submission statistics for the active listing',
+      security: [{ bearerAuth: [] }],
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            totalUsers: { type: 'integer' },
+            submitted: { type: 'integer' },
+            pending: { type: 'integer' },
+          },
+        },
+      },
+    },
+  }, async () => {
     const activeListing = await app.db.listing.findFirst({ where: { status: 'ACTIVE' } })
     const [totalUsers, submitted] = await app.db.$transaction([
       app.db.user.count({ where: { active: true } }),
@@ -16,7 +33,28 @@ export async function dashboardRoutes(app: FastifyInstance) {
     return { totalUsers, submitted, pending: totalUsers - submitted }
   })
 
-  app.get('/recent-submissions', { preHandler: auth }, async () => {
+  app.get('/recent-submissions', {
+    preHandler: auth,
+    schema: {
+      tags: ['Dashboard'],
+      summary: 'Get last 20 submissions for the active listing',
+      security: [{ bearerAuth: [] }],
+      response: {
+        200: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string' },
+              createdAt: { type: 'string' },
+              user: { type: 'object', properties: { name: { type: 'string' }, employeeId: { type: 'string' } } },
+              menuOption: { type: 'object', properties: { name: { type: 'string' } } },
+            },
+          },
+        },
+      },
+    },
+  }, async () => {
     const activeListing = await app.db.listing.findFirst({ where: { status: 'ACTIVE' } })
     if (!activeListing) return []
 
@@ -28,7 +66,27 @@ export async function dashboardRoutes(app: FastifyInstance) {
     })
   })
 
-  app.get('/meal-counts', { preHandler: auth }, async () => {
+  app.get('/meal-counts', {
+    preHandler: auth,
+    schema: {
+      tags: ['Dashboard'],
+      summary: 'Get selection counts grouped by menu option for the active listing',
+      security: [{ bearerAuth: [] }],
+      response: {
+        200: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              menuOptionId: { type: 'string' },
+              name: { type: 'string' },
+              count: { type: 'integer' },
+            },
+          },
+        },
+      },
+    },
+  }, async () => {
     const activeListing = await app.db.listing.findFirst({ where: { status: 'ACTIVE' } })
     if (!activeListing) return []
 

@@ -13,9 +13,34 @@ export async function mealsRoutes(app: FastifyInstance) {
     decorateReply: false,
   })
 
+  const mealResponseSchema = {
+    type: 'object',
+    properties: {
+      id: { type: 'string' },
+      name: { type: 'string' },
+      description: { type: 'string', nullable: true },
+      imageUrl: { type: 'string', nullable: true },
+      category: { type: 'string', nullable: true },
+      active: { type: 'boolean' },
+    },
+  }
+
   app.post(
     '/meals',
-    { preHandler: [authenticate, requireRole('HR')] },
+    {
+      preHandler: [authenticate, requireRole('HR')],
+      schema: {
+        tags: ['Meals'],
+        summary: 'Add a new menu option',
+        description: 'Multipart form: fields name (required), description, category; file field image (PNG/JPEG ≤ 5MB)',
+        security: [{ bearerAuth: [] }],
+        consumes: ['multipart/form-data'],
+        response: {
+          201: mealResponseSchema,
+          400: { type: 'object', properties: { error: { type: 'string' } } },
+        },
+      },
+    },
     async (request, reply) => {
       const parts = request.parts()
       const fields: Record<string, string> = {}
@@ -40,7 +65,21 @@ export async function mealsRoutes(app: FastifyInstance) {
 
   app.put(
     '/meals/:id',
-    { preHandler: [authenticate, requireRole('HR')] },
+    {
+      preHandler: [authenticate, requireRole('HR')],
+      schema: {
+        tags: ['Meals'],
+        summary: 'Update a menu option (partial update)',
+        description: 'Multipart form: any of name, description, category; file field image to replace',
+        security: [{ bearerAuth: [] }],
+        consumes: ['multipart/form-data'],
+        params: { type: 'object', properties: { id: { type: 'string' } } },
+        response: {
+          200: mealResponseSchema,
+          404: { type: 'object', properties: { error: { type: 'string' } } },
+        },
+      },
+    },
     async (request, reply) => {
       const { id } = request.params as { id: string }
       const parts = request.parts()
@@ -75,7 +114,19 @@ export async function mealsRoutes(app: FastifyInstance) {
 
   app.delete(
     '/meals/:id',
-    { preHandler: [authenticate, requireRole('HR')] },
+    {
+      preHandler: [authenticate, requireRole('HR')],
+      schema: {
+        tags: ['Meals'],
+        summary: 'Delete a menu option (soft-deletes if it has existing selections)',
+        security: [{ bearerAuth: [] }],
+        params: { type: 'object', properties: { id: { type: 'string' } } },
+        response: {
+          204: { type: 'null' },
+          404: { type: 'object', properties: { error: { type: 'string' } } },
+        },
+      },
+    },
     async (request, reply) => {
       const { id } = request.params as { id: string }
 

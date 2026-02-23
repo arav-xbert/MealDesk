@@ -2,7 +2,37 @@ import { FastifyInstance } from 'fastify'
 import bcrypt from 'bcrypt'
 
 export async function authRoutes(app: FastifyInstance) {
-  app.post('/login', async (request, reply) => {
+  app.post('/login', {
+    schema: {
+      tags: ['Auth'],
+      summary: 'Login with Employee ID and password',
+      body: {
+        type: 'object',
+        required: ['employeeId', 'password'],
+        properties: {
+          employeeId: { type: 'string', example: 'EMP001' },
+          password: { type: 'string', example: 'password123' },
+        },
+      },
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            token: { type: 'string' },
+            user: {
+              type: 'object',
+              properties: {
+                id: { type: 'string' },
+                name: { type: 'string' },
+                role: { type: 'string', enum: ['EMPLOYEE', 'HR'] },
+              },
+            },
+          },
+        },
+        401: { type: 'object', properties: { error: { type: 'string' } } },
+      },
+    },
+  }, async (request, reply) => {
     const { employeeId, password } = request.body as { employeeId: string; password: string }
 
     const user = await app.db.user.findUnique({ where: { employeeId } })
@@ -15,5 +45,11 @@ export async function authRoutes(app: FastifyInstance) {
     return { token, user: { id: user.id, name: user.name, role: user.role } }
   })
 
-  app.post('/logout', async () => ({ message: 'Logged out' }))
+  app.post('/logout', {
+    schema: {
+      tags: ['Auth'],
+      summary: 'Logout (client should discard the JWT)',
+      response: { 200: { type: 'object', properties: { message: { type: 'string' } } } },
+    },
+  }, async () => ({ message: 'Logged out' }))
 }

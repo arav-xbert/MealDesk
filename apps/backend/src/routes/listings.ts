@@ -3,7 +3,40 @@ import { authenticate } from '../middleware/authenticate'
 import { requireRole } from '../middleware/authorize'
 
 export async function listingsRoutes(app: FastifyInstance) {
-  app.get('/listings/active', { preHandler: [authenticate] }, async (request, reply) => {
+  const menuOptionSchema = {
+    type: 'object',
+    properties: {
+      id: { type: 'string' },
+      name: { type: 'string' },
+      description: { type: 'string', nullable: true },
+      imageUrl: { type: 'string', nullable: true },
+      category: { type: 'string', nullable: true },
+    },
+  }
+
+  app.get('/listings/active', {
+    preHandler: [authenticate],
+    schema: {
+      tags: ['Listings'],
+      summary: 'Get the current active listing with menu options',
+      security: [{ bearerAuth: [] }],
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+            title: { type: 'string' },
+            date: { type: 'string', format: 'date' },
+            startTime: { type: 'string' },
+            endTime: { type: 'string' },
+            status: { type: 'string' },
+            menuOptions: { type: 'array', items: menuOptionSchema },
+          },
+        },
+        404: { type: 'object', properties: { error: { type: 'string' } } },
+      },
+    },
+  }, async (request, reply) => {
     const listing = await app.db.listing.findFirst({
       where: { status: 'ACTIVE' },
       include: { selections: false },
@@ -16,7 +49,38 @@ export async function listingsRoutes(app: FastifyInstance) {
 
   app.post(
     '/listings',
-    { preHandler: [authenticate, requireRole('HR')] },
+    {
+      preHandler: [authenticate, requireRole('HR')],
+      schema: {
+        tags: ['Listings'],
+        summary: 'Create a new active listing (deactivates any existing one)',
+        security: [{ bearerAuth: [] }],
+        body: {
+          type: 'object',
+          required: ['title', 'date', 'startTime', 'endTime'],
+          properties: {
+            title: { type: 'string', example: "Monday's Lunch" },
+            date: { type: 'string', format: 'date', example: '2026-02-24' },
+            startTime: { type: 'string', example: '09:00', description: 'HH:MM (24h)' },
+            endTime: { type: 'string', example: '11:00', description: 'HH:MM (24h)' },
+          },
+        },
+        response: {
+          201: {
+            type: 'object',
+            properties: {
+              id: { type: 'string' },
+              title: { type: 'string' },
+              date: { type: 'string' },
+              startTime: { type: 'string' },
+              endTime: { type: 'string' },
+              status: { type: 'string' },
+            },
+          },
+          400: { type: 'object', properties: { error: { type: 'string' } } },
+        },
+      },
+    },
     async (request, reply) => {
       const { title, date, startTime, endTime } = request.body as {
         title: string

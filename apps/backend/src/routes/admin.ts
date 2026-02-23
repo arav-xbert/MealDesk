@@ -4,7 +4,38 @@ import { authenticate } from '../middleware/authenticate'
 import { requireRole } from '../middleware/authorize'
 
 export async function adminRoutes(app: FastifyInstance) {
-  app.post('/users', { preHandler: [authenticate, requireRole('HR')] }, async (request, reply) => {
+  app.post('/users', {
+    preHandler: [authenticate, requireRole('HR')],
+    schema: {
+      tags: ['Admin'],
+      summary: 'Create a new user account',
+      security: [{ bearerAuth: [] }],
+      body: {
+        type: 'object',
+        required: ['employeeId', 'name', 'password'],
+        properties: {
+          employeeId: { type: 'string', example: 'EMP002' },
+          name: { type: 'string', example: 'Jane Smith' },
+          role: { type: 'string', enum: ['EMPLOYEE', 'HR'], default: 'EMPLOYEE' },
+          password: { type: 'string' },
+        },
+      },
+      response: {
+        201: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+            employeeId: { type: 'string' },
+            name: { type: 'string' },
+            role: { type: 'string' },
+            active: { type: 'boolean' },
+            createdAt: { type: 'string' },
+          },
+        },
+        400: { type: 'object', properties: { error: { type: 'string' } } },
+      },
+    },
+  }, async (request, reply) => {
     const { employeeId, name, role, password } = request.body as {
       employeeId: string
       name: string
