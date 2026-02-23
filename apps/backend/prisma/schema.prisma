@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  EMPLOYEE
+  HR
+}
+
+enum ListingStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model User {
+  id           String      @id @default(cuid())
+  employeeId   String      @unique
+  name         String
+  role         Role        @default(EMPLOYEE)
+  passwordHash String
+  active       Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+
+  selections   Selection[]
+}
+
+model Listing {
+  id        String        @id @default(cuid())
+  title     String
+  date      DateTime      @db.Date
+  startTime DateTime      @db.Time(0)
+  endTime   DateTime      @db.Time(0)
+  status    ListingStatus @default(ACTIVE)
+  createdAt DateTime      @default(now())
+
+  selections Selection[]
+}
+
+model MenuOption {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  imageUrl    String?
+  category    String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  selections Selection[]
+}
+
+model Selection {
+  id           String   @id @default(cuid())
+  listingId    String
+  userId       String
+  menuOptionId String
+  createdAt    DateTime @default(now())
+
+  listing    Listing    @relation(fields: [listingId], references: [id])
+  user       User       @relation(fields: [userId], references: [id])
+  menuOption MenuOption @relation(fields: [menuOptionId], references: [id])
+
+  @@unique([listingId, userId])
+}
