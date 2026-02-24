@@ -13,7 +13,10 @@ import { dashboardRoutes } from './routes/dashboard'
 import { adminRoutes } from './routes/admin'
 
 export async function buildApp() {
-  const app = Fastify({ logger: true })
+  const app = Fastify({
+    logger: true,
+    ajv: { customOptions: { keywords: ['example'] } },
+  })
 
   await app.register(cors, { origin: true })
 

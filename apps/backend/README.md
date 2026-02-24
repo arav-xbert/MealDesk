@@ -170,3 +170,7 @@ prisma/
 └── seed.ts           seed script
 uploads/              served statically at /uploads/* (gitignored)
 ```
+
+## API Docs
+
+Interactive Swagger UI is available at `http://localhost:3001/docs` when the server is running.
