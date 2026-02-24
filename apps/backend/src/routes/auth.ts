@@ -41,7 +41,7 @@ export async function authRoutes(app: FastifyInstance) {
     const valid = await bcrypt.compare(password, user.passwordHash)
     if (!valid) return reply.code(401).send({ error: 'Invalid credentials' })
 
-    const token = app.jwt.sign({ userId: user.id, role: user.role })
+    const token = app.jwt.sign({ userId: user.id, role: user.role }, { expiresIn: '8h' })
     return { token, user: { id: user.id, name: user.name, role: user.role } }
   })
 

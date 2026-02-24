@@ -16,6 +16,6 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
     const payload = await request.jwtVerify<JwtUser>()
     request.user = payload
   } catch {
-    reply.code(401).send({ error: 'Unauthorized' })
+    return reply.code(401).send({ error: 'Unauthorized' })
   }
 }
