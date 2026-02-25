@@ -1,0 +1,138 @@
+.content {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Section label ──────────────────────────────────────── */
+.sectionLabel {
+  font-family: var(--font-secondary);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-primary-500);
+  margin: 0;
+}
+
+/* ── Add meal form card ─────────────────────────────────── */
+.formCard {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldLabel {
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-200);
+}
+
+/* ── Existing meal list ─────────────────────────────────── */
+.mealList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mealCard {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mealRow {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.mealImage {
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  border-radius: 8px;
+  background: var(--color-neutral-775);
+  flex-shrink: 0;
+}
+
+.mealInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mealName {
+  font-family: var(--font-primary);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-neutral-100);
+}
+
+.mealDescription {
+  font-family: var(--font-secondary);
+  font-size: 12px;
+  color: var(--color-neutral-400);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.mealTag {
+  margin-top: 4px;
+}
+
+/* ── Edit / Remove actions ──────────────────────────────── */
+.mealActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding-top: 4px;
+  border-top: 1px solid var(--color-neutral-875);
+}
+
+.editBtn,
+.removeBtn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  padding: 0;
+}
+
+.editBtn {
+  color: var(--color-warning-500);
+}
+
+.editBtn:hover {
+  color: var(--color-warning-400);
+}
+
+.removeBtn {
+  color: var(--color-danger-500);
+}
+
+.removeBtn:hover {
+  opacity: 0.75;
+}

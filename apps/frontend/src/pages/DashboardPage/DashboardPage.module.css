@@ -1,0 +1,47 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-neutral-950);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NavBar extras ──────────────────────────────────────── */
+.navTitle {
+  font-family: var(--font-primary);
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navUser {
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-white);
+}
+
+.navLogout {
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-white);
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.navLogout:hover {
+  opacity: 1;
+}
+
+/* ── Tabs strip ─────────────────────────────────────────── */
+.tabsBar {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-neutral-825);
+  width: 100%;
+}

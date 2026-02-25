@@ -1,5 +1,5 @@
-import { Tag } from '../Tag';
-import { RadioButton } from '../RadioButton';
+import {Tag} from '../Tag';
+import {RadioButton} from '../RadioButton';
 import styles from './MealCard.module.css';
 
 interface MealCardProps {
@@ -12,9 +12,22 @@ interface MealCardProps {
   className?: string;
 }
 
-export function MealCard({ name, description, tags = [], image, selected, onSelect, className }: MealCardProps) {
+export function MealCard({
+  name,
+  description,
+  tags = [],
+  image,
+  selected,
+  onSelect,
+  className,
+}: MealCardProps) {
   return (
-    <div className={`${styles.card} ${className ?? ''}`}>
+    <div
+      onClick={() => {
+        onSelect?.();
+      }}
+      className={`${styles.card} ${className ?? ''}`}
+    >
       <div className={styles.imageWrapper}>
         {image && <img src={image} alt={name} className={styles.image} />}
       </div>
@@ -30,7 +43,11 @@ export function MealCard({ name, description, tags = [], image, selected, onSele
         )}
       </div>
       <div className={styles.radioArea}>
-        <RadioButton name="meal" checked={!!selected} onChange={() => onSelect?.()} />
+        <RadioButton
+          name='meal'
+          checked={!!selected}
+          onChange={() => onSelect?.()}
+        />
       </div>
     </div>
   );
