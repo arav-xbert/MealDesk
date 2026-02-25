@@ -52,6 +52,58 @@ export async function selectionsRoutes(app: FastifyInstance) {
     }
   })
 
+  app.put('/selections/current', {
+    preHandler: [authenticate],
+    schema: {
+      tags: ['Selections'],
+      summary: "Update the current user's selection for the active listing",
+      security: [{ bearerAuth: [] }],
+      body: {
+        type: 'object',
+        required: ['menuOptionId'],
+        properties: {
+          menuOptionId: { type: 'string' },
+        },
+      },
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' },
+            listingId: { type: 'string' },
+            userId: { type: 'string' },
+            menuOptionId: { type: 'string' },
+            createdAt: { type: 'string' },
+            menuOption: { type: 'object', properties: { id: { type: 'string' }, name: { type: 'string' } } },
+            listing: { type: 'object', properties: { id: { type: 'string' }, title: { type: 'string' } } },
+          },
+        },
+        404: { type: 'object', properties: { error: { type: 'string' } } },
+      },
+    },
+  }, async (request, reply) => {
+    const { menuOptionId } = request.body as { menuOptionId: string }
+
+    const activeListing = await app.db.listing.findFirst({ where: { status: 'ACTIVE' } })
+    if (!activeListing) {
+      return reply.code(404).send({ error: 'No active listing' })
+    }
+
+    const existing = await app.db.selection.findUnique({
+      where: { listingId_userId: { listingId: activeListing.id, userId: request.user.userId } },
+    })
+    if (!existing) {
+      return reply.code(404).send({ error: 'No existing selection to update' })
+    }
+
+    const updated = await app.db.selection.update({
+      where: { id: existing.id },
+      data: { menuOptionId },
+      include: { menuOption: true, listing: true },
+    })
+    return reply.send(updated)
+  })
+
   app.get('/selections/my-latest', {
     preHandler: [authenticate],
     schema: {

@@ -1,9 +1,10 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { NavBar } from '../../design-system/components/NavBar';
 import { Logo } from '../../design-system/components/Logo';
 import { Tag } from '../../design-system/components/Tag';
 import { Button } from '../../design-system/components/Button';
 import styles from './SubmittedPage.module.css';
+import { useAuth } from '../../context/AuthContext';
 
 interface LocationState {
   meal: {
@@ -15,9 +16,16 @@ interface LocationState {
 }
 
 export function SubmittedPage() {
+  const { user, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  const { meal, session, date } = (location.state as LocationState) ?? {};
+  const state = location.state as LocationState | null;
+
+  if (!state?.meal) {
+    return <Navigate to="/lunch-selection" replace />;
+  }
+
+  const { meal, session, date } = state;
 
   return (
     <div className={styles.page}>
@@ -30,8 +38,14 @@ export function SubmittedPage() {
         }
         right={
           <div className={styles.navRight}>
-            <span className={styles.navUser}>Jane Doe</span>
-            <a href="#" className={styles.navLogout}>Logout</a>
+            <span className={styles.navUser}>{user?.name ?? ''}</span>
+            <a
+              href="#"
+              className={styles.navLogout}
+              onClick={(e) => { e.preventDefault(); logout().then(() => navigate('/')); }}
+            >
+              Logout
+            </a>
           </div>
         }
       />
@@ -71,7 +85,7 @@ export function SubmittedPage() {
           )}
         </div>
 
-        <Button variant="secondary" style={{ width: '100%' }} onClick={() => navigate('/')}>
+        <Button variant="secondary" style={{ width: '100%' }} onClick={() => navigate('/lunch-selection')}>
           Return Home
         </Button>
       </main>

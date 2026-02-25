@@ -42,13 +42,15 @@ export function MealCard({
           </div>
         )}
       </div>
-      <div className={styles.radioArea}>
-        <RadioButton
-          name='meal'
-          checked={!!selected}
-          onChange={() => onSelect?.()}
-        />
-      </div>
+      {onSelect !== undefined && (
+        <div className={styles.radioArea}>
+          <RadioButton
+            name='meal'
+            checked={!!selected}
+            onChange={() => onSelect?.()}
+          />
+        </div>
+      )}
     </div>
   );
 }

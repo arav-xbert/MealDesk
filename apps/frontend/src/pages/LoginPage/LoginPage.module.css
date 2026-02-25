@@ -95,3 +95,11 @@
   margin-top: auto;
   padding-top: 16px;
 }
+
+.error {
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  color: var(--color-danger-500);
+  margin: 0;
+  text-align: center;
+}

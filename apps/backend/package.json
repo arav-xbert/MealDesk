@@ -8,7 +8,8 @@
     "start": "node dist/index.js",
     "lint": "tsc --noEmit",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "db:snapshot": "tsx prisma/snapshot.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
