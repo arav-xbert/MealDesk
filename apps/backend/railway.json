@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "pnpm db:deploy && pnpm start",
+    "startCommand": "npx prisma migrate deploy && node dist/index.js",
     "healthcheckPath": "/api/health",
     "healthcheckTimeout": 100
   }
