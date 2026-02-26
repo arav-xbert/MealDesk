@@ -3,6 +3,7 @@ import { NavBar } from '../../design-system/components/NavBar';
 import { Logo } from '../../design-system/components/Logo';
 import { TabBar, TabItem } from '../../design-system/components/Tab';
 import styles from './DashboardPage.module.css';
+import { useAuth } from '../../context/AuthContext';
 
 const TABS = [
   { label: 'Overview', path: '/dashboard/overview' },
@@ -10,6 +11,7 @@ const TABS = [
 ];
 
 export function DashboardPage() {
+  const { user, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -24,8 +26,14 @@ export function DashboardPage() {
         }
         right={
           <div className={styles.navRight}>
-            <span className={styles.navUser}>HR Admin</span>
-            <a href="#" className={styles.navLogout}>Logout</a>
+            <span className={styles.navUser}>{user?.name ?? ''}</span>
+            <a
+              href="#"
+              className={styles.navLogout}
+              onClick={(e) => { e.preventDefault(); logout().then(() => navigate('/')); }}
+            >
+              Logout
+            </a>
           </div>
         }
       />

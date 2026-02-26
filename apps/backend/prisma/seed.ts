@@ -13,6 +13,13 @@ async function main() {
     const users = [
       { employeeId: 'EMP001', name: 'Alice Employee', role: 'EMPLOYEE' as const, password: 'password123' },
       { employeeId: 'HR001', name: 'Bob HR', role: 'HR' as const, password: 'password123' },
+      { employeeId: 'EMP002', name: 'Charlie Employee', role: 'EMPLOYEE' as const, password: 'password123' },
+      { employeeId : 'EMP003', name: 'David Employee', role: 'EMPLOYEE' as const, password: 'password123' },
+      { employeeId : 'EMP004', name: 'Eve Employee', role: 'EMPLOYEE' as const, password: 'password123' },
+      { employeeId : 'EMP005', name: 'Frank Employee', role: 'EMPLOYEE' as const, password: 'password123' },
+      { employeeId : 'EMP006', name: 'Grace Employee', role: 'EMPLOYEE' as const, password: 'password123' },
+
+
     ]
     for (const u of users) {
       const passwordHash = await bcrypt.hash(u.password, 10)

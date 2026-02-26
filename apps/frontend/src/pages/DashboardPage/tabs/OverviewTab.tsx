@@ -1,61 +1,79 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Badge } from '../../../design-system/components/Badge';
 import { MealCard } from '../../../design-system/components/MealCard';
 import styles from './OverviewTab.module.css';
+import { useAuth } from '../../../context/AuthContext';
+import { dashboardService } from '../../../services/dashboard.service';
+import { ApiError } from '../../../lib/http';
+import type { DashboardStats, RecentSubmission, MealCount } from '../../../types/api';
 
-const STATS = [
-  { value: 24, label: 'Total Users', color: 'var(--color-primary-500)' },
-  { value: 18, label: 'Submitted',   color: 'var(--color-success-500)' },
-  { value: 6,  label: 'Pending',     color: 'var(--color-warning-500)' },
+const STAT_COLORS = [
+  'var(--color-primary-500)',
+  'var(--color-success-500)',
+  'var(--color-warning-500)',
 ];
-
-const SUBMISSIONS = [
-  { name: 'Jane Doe',    selection: 'Grilled Chicken Salad', status: 'open'    as const },
-  { name: 'John Smith',  selection: 'Vegetarian Pasta',      status: 'open'    as const },
-  { name: 'Sarah Lee',   selection: 'Beef Stir Fry',         status: 'open'    as const },
-  { name: 'Mike Chen',   selection: '—',                     status: 'pending' as const },
-  { name: 'Emily Davis', selection: '—',                     status: 'pending' as const },
-];
-
-const MEALS = [
-  {
-    id: 'grilled-chicken-salad',
-    name: 'Grilled Chicken Salad',
-    description: 'Tender grilled chicken breast served over a bed of fresh mixed greens, cherry tomatoes, and honey mustard dressing.',
-    tags: ['HIGH PROTEIN'],
-  },
-  {
-    id: 'vegetarian-pasta',
-    name: 'Vegetarian Pasta',
-    description: 'Penne pasta tossed with seasonal roasted vegetables, extra virgin olive oil, and a sprinkle of parmesan.',
-    tags: ['VEG'],
-  },
-  {
-    id: 'beef-stir-fry',
-    name: 'Beef Stir Fry',
-    description: 'Savory beef strips with broccoli, bell peppers, and snap peas in a light ginger-soy sauce served over brown rice.',
-    tags: ['CLASSIC'],
-  },
-];
-
-const STATUS_LABEL: Record<'open' | 'pending', string> = {
-  open: 'SUBMITTED',
-  pending: 'PENDING',
-};
 
 export function OverviewTab() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [submissions, setSubmissions] = useState<RecentSubmission[]>([]);
+  const [mealCounts, setMealCounts] = useState<MealCount[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    Promise.all([
+      dashboardService.getStats(),
+      dashboardService.getRecentSubmissions(),
+      dashboardService.getMealCounts(),
+    ])
+      .then(([s, sub, mc]) => {
+        setStats(s);
+        setSubmissions(sub);
+        setMealCounts(mc);
+      })
+      .catch((err) => {
+        if (err instanceof ApiError && err.status === 401) {
+          logout().then(() => navigate('/'));
+        } else {
+          setError('Could not load dashboard data.');
+        }
+      })
+      .finally(() => setIsLoading(false));
+  }, [logout, navigate]);
+
+  if (isLoading) {
+    return <main className={styles.content}><p className={styles.sectionLabel}>Loading...</p></main>;
+  }
+
+  if (error) {
+    return <main className={styles.content}><p className={styles.sectionLabel} style={{ color: 'var(--color-danger-500)' }}>{error}</p></main>;
+  }
+
+  const statRows = stats
+    ? [
+        { value: stats.totalUsers, label: 'Total Users', color: STAT_COLORS[0] },
+        { value: stats.submitted,  label: 'Submitted',   color: STAT_COLORS[1] },
+        { value: stats.pending,    label: 'Pending',     color: STAT_COLORS[2] },
+      ]
+    : [];
+
   return (
     <main className={styles.content}>
 
       {/* Stats */}
       <p className={styles.sectionLabel}>Submissions Overview</p>
       <div className={styles.statsCard}>
-        {STATS.map((stat, i) => (
+        {statRows.map((stat, i) => (
           <div key={stat.label} className={styles.statCell}>
             <span className={styles.statValue} style={{ color: stat.color }}>
               {stat.value}
             </span>
             <span className={styles.statLabel}>{stat.label}</span>
-            {i < STATS.length - 1 && <div className={styles.statDivider} />}
+            {i < statRows.length - 1 && <div className={styles.statDivider} />}
           </div>
         ))}
       </div>
@@ -68,11 +86,16 @@ export function OverviewTab() {
           <span>Selection</span>
           <span>Status</span>
         </div>
-        {SUBMISSIONS.map((row, i) => (
-          <div key={i} className={styles.tableRow}>
-            <span className={styles.rowName}>{row.name}</span>
-            <span className={styles.rowSelection}>{row.selection}</span>
-            <Badge variant={row.status}>{STATUS_LABEL[row.status]}</Badge>
+        {submissions.length === 0 && (
+          <div className={styles.tableRow}>
+            <span className={styles.rowName} style={{ opacity: 0.5 }}>No submissions yet</span>
+          </div>
+        )}
+        {submissions.map((row) => (
+          <div key={row.id} className={styles.tableRow}>
+            <span className={styles.rowName}>{row.user.name}</span>
+            <span className={styles.rowSelection}>{row.menuOption.name}</span>
+            <Badge variant="open">SUBMITTED</Badge>
           </div>
         ))}
       </div>
@@ -80,12 +103,15 @@ export function OverviewTab() {
       {/* Current meals */}
       <p className={styles.sectionLabel}>Current Meals</p>
       <div className={styles.mealList}>
-        {MEALS.map((meal) => (
+        {mealCounts.length === 0 && (
+          <p className={styles.sectionLabel} style={{ opacity: 0.5, fontSize: '14px' }}>No meals selected yet</p>
+        )}
+        {mealCounts.map((mc) => (
           <MealCard
-            key={meal.id}
-            name={meal.name}
-            description={meal.description}
-            tags={meal.tags}
+            key={mc.menuOptionId}
+            name={mc.name}
+            image={mc.imageUrl ?? undefined}
+            tags={[`${mc.count} selected`]}
           />
         ))}
       </div>

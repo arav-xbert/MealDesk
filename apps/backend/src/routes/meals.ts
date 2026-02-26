@@ -1,18 +1,9 @@
 import { FastifyInstance } from 'fastify'
-import path from 'path'
-import staticPlugin from '@fastify/static'
 import { authenticate } from '../middleware/authenticate'
 import { requireRole } from '../middleware/authorize'
 import { saveImage, deleteImage } from '../lib/saveImage'
 
 export async function mealsRoutes(app: FastifyInstance) {
-  const uploadDir = process.env.UPLOAD_DIR || 'uploads'
-  await app.register(staticPlugin, {
-    root: path.resolve(uploadDir),
-    prefix: `/${uploadDir}/`,
-    decorateReply: false,
-  })
-
   const mealResponseSchema = {
     type: 'object',
     properties: {

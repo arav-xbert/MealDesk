@@ -80,6 +80,7 @@ export async function dashboardRoutes(app: FastifyInstance) {
             properties: {
               menuOptionId: { type: 'string' },
               name: { type: 'string' },
+              imageUrl: { type: 'string', nullable: true },
               count: { type: 'integer' },
             },
           },
@@ -94,14 +95,15 @@ export async function dashboardRoutes(app: FastifyInstance) {
       by: ['menuOptionId'],
       where: { listingId: activeListing.id },
       _count: { menuOptionId: true },
+      orderBy: { _count: { menuOptionId: 'desc' } },
     })
 
     const options = await app.db.menuOption.findMany({
       where: { id: { in: counts.map((c) => c.menuOptionId) } },
-      select: { id: true, name: true },
+      select: { id: true, name: true, imageUrl: true },
     })
 
-    const nameMap = Object.fromEntries(options.map((o) => [o.id, o.name]))
-    return counts.map((c) => ({ menuOptionId: c.menuOptionId, name: nameMap[c.menuOptionId], count: c._count.menuOptionId }))
+    const optionMap = Object.fromEntries(options.map((o) => [o.id, o]))
+    return counts.map((c) => ({ menuOptionId: c.menuOptionId, name: optionMap[c.menuOptionId]?.name, imageUrl: optionMap[c.menuOptionId]?.imageUrl ?? null, count: c._count.menuOptionId }))
   })
 }

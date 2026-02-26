@@ -2,6 +2,8 @@ import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import swagger from '@fastify/swagger'
 import swaggerUi from '@fastify/swagger-ui'
+import staticPlugin from '@fastify/static'
+import path from 'path'
 import { dbPlugin } from './plugins/db'
 import { jwtPlugin } from './plugins/jwt'
 import { multipartPlugin } from './plugins/multipart'
@@ -19,6 +21,12 @@ export async function buildApp() {
   })
 
   await app.register(cors, { origin: true })
+
+  const uploadDir = process.env.UPLOAD_DIR || 'uploads'
+  await app.register(staticPlugin, {
+    root: path.resolve(uploadDir),
+    prefix: `/${uploadDir}/`,
+  })
 
   await app.register(swagger, {
     openapi: {
