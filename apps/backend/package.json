@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsup src/index.ts --format cjs --dts",
+    "build": "prisma generate && tsup src/index.ts --format cjs --dts",
     "start": "node dist/index.js",
     "lint": "tsc --noEmit",
     "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
     "db:snapshot": "tsx prisma/snapshot.ts"
   },
