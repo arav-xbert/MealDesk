@@ -4,6 +4,7 @@ import { ImageUpload } from '../../../design-system/components/ImageUpload';
 import { Button } from '../../../design-system/components/Button';
 import { Tag } from '../../../design-system/components/Tag';
 import styles from './EditMealsTab.module.css';
+import { API_ORIGIN } from '../../../config';
 import { mealsService } from '../../../services/meals.service';
 import { listingsService } from '../../../services/listings.service';
 import { ApiError } from '../../../lib/http';
@@ -181,7 +182,7 @@ export function EditMealsTab() {
                 <div className={styles.mealRow}>
                   <div className={styles.mealImage}>
                     {meal.imageUrl && (
-                      <img src={meal.imageUrl} alt={meal.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} />
+                      <img src={`${API_ORIGIN}${meal.imageUrl}`} alt={meal.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} />
                     )}
                   </div>
                   <div className={styles.mealInfo}>
