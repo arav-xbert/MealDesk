@@ -24,12 +24,10 @@ export async function dashboardRoutes(app: FastifyInstance) {
     },
   }, async () => {
     const activeListing = await app.db.listing.findFirst({ where: { status: 'ACTIVE' } })
-    const [totalUsers, submitted] = await app.db.$transaction([
-      app.db.user.count({ where: { active: true } }),
-      activeListing
-        ? app.db.selection.count({ where: { listingId: activeListing.id } })
-        : Promise.resolve(0),
-    ])
+    const totalUsers = await app.db.user.count({ where: { active: true } })
+    const submitted = activeListing
+      ? await app.db.selection.count({ where: { listingId: activeListing.id } })
+      : 0
     return { totalUsers, submitted, pending: totalUsers - submitted }
   })
 
