@@ -5,11 +5,13 @@ import { Tag } from '../../design-system/components/Tag';
 import { Button } from '../../design-system/components/Button';
 import styles from './SubmittedPage.module.css';
 import { useAuth } from '../../context/AuthContext';
+import { API_ORIGIN } from '../../config';
 
 interface LocationState {
   meal: {
     name: string;
     tags: string[];
+    imageUrl?: string;
   };
   session: string;
   date: string;
@@ -71,7 +73,15 @@ export function SubmittedPage() {
         </div>
 
         <div className={styles.card}>
-          <div className={styles.imagePlaceholder} />
+          {meal?.imageUrl ? (
+            <img
+              src={`${API_ORIGIN}${meal.imageUrl}`}
+              alt={meal.name}
+              className={styles.mealImage}
+            />
+          ) : (
+            <div className={styles.imagePlaceholder} />
+          )}
           <h2 className={styles.mealName}>{meal?.name ?? 'Your Meal'}</h2>
           <p className={styles.meta}>
             {session ?? 'Thursday Lunch'} · {date ?? 'Feb 12, 2025'}

@@ -63,7 +63,7 @@ export function LunchSelectionPage() {
       const option = listing.menuOptions.find((o) => o.id === selectedOptionId)!;
       navigate('/submitted', {
         state: {
-          meal: { name: option.name, tags: option.category ? [option.category] : [] },
+          meal: { name: option.name, tags: option.category ? [option.category] : [], imageUrl: option.imageUrl },
           session: listing.title,
           date: new Date(listing.date).toLocaleDateString('en-US', {
             month: 'short', day: 'numeric', year: 'numeric',
