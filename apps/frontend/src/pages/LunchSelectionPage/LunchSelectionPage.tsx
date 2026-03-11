@@ -7,6 +7,7 @@ import { MealCard } from '../../design-system/components/MealCard';
 import { Button } from '../../design-system/components/Button';
 import styles from './LunchSelectionPage.module.css';
 import { useAuth } from '../../context/AuthContext';
+import { API_ORIGIN } from '../../config';
 import { listingsService } from '../../services/listings.service';
 import { selectionsService } from '../../services/selections.service';
 import { ApiError } from '../../lib/http';
@@ -62,7 +63,7 @@ export function LunchSelectionPage() {
       const option = listing.menuOptions.find((o) => o.id === selectedOptionId)!;
       navigate('/submitted', {
         state: {
-          meal: { name: option.name, tags: option.category ? [option.category] : [] },
+          meal: { name: option.name, tags: option.category ? [option.category] : [], imageUrl: option.imageUrl },
           session: listing.title,
           date: new Date(listing.date).toLocaleDateString('en-US', {
             month: 'short', day: 'numeric', year: 'numeric',
@@ -163,7 +164,7 @@ export function LunchSelectionPage() {
                         name={chosen.name}
                         description={chosen.description ?? undefined}
                         tags={chosen.category ? [chosen.category] : []}
-                        image={chosen.imageUrl ? `${chosen.imageUrl}` : undefined}
+                        image={chosen.imageUrl ? `${API_ORIGIN}${chosen.imageUrl}` : undefined}
                         selected
                       />
                     </div>
@@ -186,7 +187,7 @@ export function LunchSelectionPage() {
                       name={option.name}
                       description={option.description ?? undefined}
                       tags={option.category ? [option.category] : []}
-                      image={option.imageUrl ? `${option.imageUrl}` : undefined}
+                      image={option.imageUrl ? `${API_ORIGIN}${option.imageUrl}` : undefined}
                       selected={selectedOptionId === option.id}
                       onSelect={() => setSelectedOptionId(option.id)}
                     />

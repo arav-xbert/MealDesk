@@ -4,6 +4,7 @@ import { Badge } from '../../../design-system/components/Badge';
 import { MealCard } from '../../../design-system/components/MealCard';
 import styles from './OverviewTab.module.css';
 import { useAuth } from '../../../context/AuthContext';
+import { API_ORIGIN } from '../../../config';
 import { dashboardService } from '../../../services/dashboard.service';
 import { ApiError } from '../../../lib/http';
 import type { DashboardStats, RecentSubmission, MealCount } from '../../../types/api';
@@ -110,7 +111,7 @@ export function OverviewTab() {
           <MealCard
             key={mc.menuOptionId}
             name={mc.name}
-            image={mc.imageUrl ?? undefined}
+            image={mc.imageUrl ? `${API_ORIGIN}${mc.imageUrl}` : undefined}
             tags={[`${mc.count} selected`]}
           />
         ))}
